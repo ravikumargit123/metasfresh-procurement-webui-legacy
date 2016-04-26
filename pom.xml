@@ -12,6 +12,8 @@
 	<groupId>de.metas.procurement</groupId>
 	<artifactId>de.metas.procurement.webui</artifactId>
 
+	<description>Standalone mobile web application that is connected to metasfresh and allows the user to log in and report the availiability of goods which he would like to sell.</description>
+
 	<properties>
 		<start-class>de.metas.procurement.webui.Application</start-class>
 
@@ -346,5 +348,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<description>Standalone mobile web application that is connected to metasfresh and allows the user to log report the availiability of goods which he would like to sell.</description>
 </project>

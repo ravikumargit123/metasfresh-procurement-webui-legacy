@@ -106,7 +106,7 @@ public class ServerSyncService implements IServerSyncService
 		});
 	}
 
-	@ManagedOperation
+	@ManagedOperation(description="Requests all bpartners/contracts, products and infoMessage from the (remote) metasfresh endpoint")
 	public void syncAllAsync()
 	{
 		final Runnable callback = null;

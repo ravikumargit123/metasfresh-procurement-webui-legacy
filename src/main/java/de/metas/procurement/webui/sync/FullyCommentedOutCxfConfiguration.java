@@ -26,13 +26,13 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Currently inactive, with all code commented out. This is for reference. It creates rest-http server endpoints.
- * We currently only support a jms transport and the endpoints for that are all set up in {@link SyncConfiguration}.
+ * We currently only support a jms transport and the endpoints for that are all set up in {@link CxfOverJmsServicesConfiguration}.
  *
- * @author metas-dev <dev@metas-fresh.com>
+ * @author metas-dev <dev@metasfresh.com>
  *
  */
 @Configuration
-public class CxfConfiguration
+public class FullyCommentedOutCxfConfiguration
 {
 	// @formatter:off
 //	private static final transient Logger logger = LoggerFactory.getLogger(CxfConfiguration.class);
