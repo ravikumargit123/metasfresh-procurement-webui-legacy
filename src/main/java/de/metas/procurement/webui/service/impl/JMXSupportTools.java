@@ -24,12 +24,12 @@ import de.metas.procurement.webui.repository.ProductRepository;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -37,7 +37,7 @@ import de.metas.procurement.webui.repository.ProductRepository;
  */
 
 @Service
-@ManagedResource(description = "JMX support tools")
+@ManagedResource(objectName = "de.metas.procurement.webui:type=JMXSupportTools", description = "Supposed to make support tasks easier by allowing select and display certain records")
 public class JMXSupportTools
 {
 	@Autowired
