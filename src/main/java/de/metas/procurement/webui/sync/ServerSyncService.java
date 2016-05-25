@@ -62,7 +62,7 @@ import de.metas.procurement.webui.util.EventBusLoggingSubscriberExceptionHandler
  */
 
 @Service
-@ManagedResource(description = "Server synchronization service")
+@ManagedResource(objectName = "de.metas.procurement.webui:type=ServerSyncService", description = "Server synchronization service")
 public class ServerSyncService implements IServerSyncService
 {
 	private final transient Logger logger = LoggerFactory.getLogger(getClass());
@@ -106,7 +106,7 @@ public class ServerSyncService implements IServerSyncService
 		});
 	}
 
-	@ManagedOperation
+	@ManagedOperation(description = "Requests all bpartners/contracts, products and infoMessage from the (remote) metasfresh endpoint")
 	public void syncAllAsync()
 	{
 		final Runnable callback = null;

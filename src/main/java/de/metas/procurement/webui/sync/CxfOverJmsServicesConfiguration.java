@@ -10,12 +10,9 @@ import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.feature.LoggingFeature;
-import org.apache.cxf.interceptor.AbstractLoggingInterceptor;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.management.counters.CounterRepository;
-import org.apache.cxf.management.jmx.InstrumentationManagerImpl;
 import org.apache.cxf.transport.jms.JMSConfigFeature;
 import org.apache.cxf.transport.jms.JMSConfiguration;
 import org.slf4j.Logger;
@@ -61,18 +58,15 @@ import de.metas.procurement.sync.IServerSync;
  *
  */
 @Configuration
-public class SyncConfiguration
+public class CxfOverJmsServicesConfiguration
 {
-	private static final transient Logger logger = LoggerFactory.getLogger(SyncConfiguration.class);
+	private static final transient Logger logger = LoggerFactory.getLogger(CxfOverJmsServicesConfiguration.class);
 
 	// NOTE: we autowire this here just to make sure that, if there is an embedded broker specified,
 	// it's configured and started before we start our serverSync which can rely on it.
 	@SuppressWarnings("unused")
 	@Autowired
 	private BrokerService embeddedBrokerService;
-
-	@Autowired
-	private LoggingFeature loggingFeature;
 
 	@Value("${mfprocurement.jms.webui.request:}")
 	private String webUIQueueRequest;
@@ -107,7 +101,9 @@ public class SyncConfiguration
 	 * @return
 	 */
 	@Bean
-	public IServerSync clientEndPoint()
+	public IServerSync clientEndPoint(
+			final JacksonJaxbJsonProvider jacksonJaxbJsonProvider,
+			final LoggingFeature loggingFeature)
 	{
 		if (useMockedServer)
 		{
@@ -130,8 +126,6 @@ public class SyncConfiguration
 
 		//
 		// Create the server binding.
-		final JacksonJaxbJsonProvider jacksonJaxbJsonProvider = new JacksonJaxbJsonProvider();
-
 		final IServerSync serverSync = JAXRSClientFactory.create(
 				serverUrl.trim(),
 				IServerSync.class,
@@ -160,10 +154,11 @@ public class SyncConfiguration
 	}
 
 	@Bean
-	public Server serverEndPoint(final SpringBus bus)
+	public Server serverEndPoint(
+			final SpringBus bus,
+			final JacksonJaxbJsonProvider jacksonJaxbJsonProvider,
+			final LoggingFeature loggingFeature)
 	{
-		final JacksonJaxbJsonProvider jacksonJaxbJsonProvider = new JacksonJaxbJsonProvider();
-
 		final JMSConfigFeature jmsConfigFeature = createJMSConfigFeature();
 
 		final JAXRSServerFactoryBean svrFactory = new JAXRSServerFactoryBean();
@@ -179,53 +174,6 @@ public class SyncConfiguration
 
 		final Server server = svrFactory.create();
 		return server;
-	}
-
-	@Bean
-	public SpringBus cxfBus()
-	{
-		return new SpringBus();
-	}
-
-	@Bean
-	public org.apache.cxf.management.InstrumentationManager instrumentationManager(final SpringBus bus)
-	{
-		final InstrumentationManagerImpl instrumentationManager = new InstrumentationManagerImpl();
-		instrumentationManager.setEnabled(true);
-		instrumentationManager.setBus(bus);
-		instrumentationManager.setUsePlatformMBeanServer(true);
-		return instrumentationManager;
-	}
-
-	@Bean
-	public org.apache.cxf.management.counters.CounterRepository counterRepository(final SpringBus bus)
-	{
-		final CounterRepository counterRepository = new CounterRepository();
-		counterRepository.setBus(bus);
-		return counterRepository;
-	}
-
-	/**
-	 *
-	 * @return
-	 * @task https://metasfresh.atlassian.net/browse/FRESH-87
-	 */
-	@Bean
-	public LoggingFeature createLoggingFeature()
-	{
-		final boolean prettyPrint = true;
-		final boolean showBinary = true;
-
-		// see LoggingFeature.initializeProvider()...we want to make sure that showBinary is not ignored
-		final int limit = AbstractLoggingInterceptor.DEFAULT_LIMIT + 1;
-
-		final LoggingFeature loggingFeature = new LoggingFeature(
-				null, // use default
-				null, // use default
-				limit,
-				prettyPrint,
-				showBinary);
-		return loggingFeature;
 	}
 
 	private JMSConfigFeature createJMSConfigFeature()

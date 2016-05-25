@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import javax.ws.rs.Path;
 
-import de.metas.procurement.webui.sync.CxfConfiguration;
+import de.metas.procurement.webui.sync.FullyCommentedOutCxfConfiguration;
 
 /*
  * #%L
@@ -32,7 +32,7 @@ import de.metas.procurement.webui.sync.CxfConfiguration;
  */
 
 /**
- * Annotate your {@link Path} interfaces or your implementation beans with this annotation to advice the {@link CxfConfiguration} to NOT bind them.
+ * Annotate your {@link Path} interfaces or your implementation beans with this annotation to advice the {@link FullyCommentedOutCxfConfiguration} to NOT bind them.
  * 
  * @author metas-dev <dev@metas-fresh.com>
  *
