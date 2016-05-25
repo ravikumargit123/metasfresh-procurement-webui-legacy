@@ -71,6 +71,13 @@
 	</dependencyManagement>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>de.metas.commons.cxf</groupId>
+			<artifactId>de.metas.commons.cxf</artifactId>
+			<version>1.0_IT-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.vaadin.spring.extensions</groupId>
 			<artifactId>vaadin-spring-ext-boot</artifactId>
