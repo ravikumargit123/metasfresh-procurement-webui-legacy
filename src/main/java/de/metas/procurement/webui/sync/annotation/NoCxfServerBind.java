@@ -7,8 +7,6 @@ import java.lang.annotation.Target;
 
 import javax.ws.rs.Path;
 
-import de.metas.procurement.webui.sync.FullyCommentedOutCxfConfiguration;
-
 /*
  * #%L
  * de.metas.procurement.webui
@@ -19,12 +17,12 @@ import de.metas.procurement.webui.sync.FullyCommentedOutCxfConfiguration;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -32,8 +30,8 @@ import de.metas.procurement.webui.sync.FullyCommentedOutCxfConfiguration;
  */
 
 /**
- * Annotate your {@link Path} interfaces or your implementation beans with this annotation to advice the {@link FullyCommentedOutCxfConfiguration} to NOT bind them.
- * 
+ * Annotate your {@link Path} interfaces or your implementation beans with this annotation to advice the {@link de.metas.procurement.webui.sync.FullyCommentedOutCxfConfiguration} to NOT bind them.
+ *
  * @author metas-dev <dev@metas-fresh.com>
  *
  */
