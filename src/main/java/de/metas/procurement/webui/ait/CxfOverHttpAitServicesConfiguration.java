@@ -99,5 +99,4 @@ public class CxfOverHttpAitServicesConfiguration
 		svrFactory.getFeatures().add(loggingFeature);
 		return svrFactory.create();
 	}
-
 }

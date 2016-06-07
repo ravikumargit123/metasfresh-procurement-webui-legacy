@@ -12,6 +12,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,6 +24,8 @@ import org.vaadin.spring.i18n.ResourceBundleMessageProvider;
 
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.spring.boot.internal.VaadinServletConfiguration;
+
+import de.metas.commons.cxf.Cxf;
 
 /*
  * #%L
@@ -37,11 +40,11 @@ import com.vaadin.spring.boot.internal.VaadinServletConfiguration;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
@@ -51,6 +54,7 @@ import com.vaadin.spring.boot.internal.VaadinServletConfiguration;
 @EnableJpaRepositories
 // Make config here (vaadinServlet) override stuff in VaadinServletConfiguration
 @Import(VaadinServletConfiguration.class)
+@ComponentScan(basePackageClasses = { Cxf.class, Application.class })
 public class Application
 {
 	public static final void main(final String[] args)
@@ -121,7 +125,9 @@ public class Application
 		return new ResourceBundleMessageProvider("messages");
 	}
 
-	/** @return default task executor used by {@link Async} calls */
+	/**
+	 * @return default task executor used by {@link Async} calls
+	 */
 	@Bean
 	public TaskExecutor taskExecutor()
 	{
